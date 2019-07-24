@@ -11,6 +11,7 @@ import Foundation
 enum PersistencePath: String {
     case IsMetric = "IsMetric"
     case Location = "Location"
+    case LatLong = "LatLong"
 }
 
 class PersistenceManager {

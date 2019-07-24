@@ -12,6 +12,7 @@ class WeatherCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var currentTempLabel: UILabel!
     @IBOutlet weak var highTempLabel: UILabel!
     @IBOutlet weak var lowTempLabel: UILabel!
     @IBOutlet weak var view: BorderUIView!
@@ -28,8 +29,9 @@ class WeatherCollectionViewCell: UICollectionViewCell {
     func setUpCell(forecast: Forecast) {
         currentForecast = forecast
         dateLabel.text = forecast.date.dateToWeekDay()
-        weatherLabel.text = forecast.day.phrase
-        highTempLabel.text = forecast.temperature.highTempString
-        lowTempLabel.text = forecast.temperature.lowTempString
+        weatherLabel.text = forecast.weather
+        currentTempLabel.text = forecast.temperatureString(temperatureType: .Temperature)
+        highTempLabel.text = forecast.temperatureString(temperatureType: .TemperatureHigh)
+        lowTempLabel.text = forecast.temperatureString(temperatureType: .TemperatureLow)
     }
 }

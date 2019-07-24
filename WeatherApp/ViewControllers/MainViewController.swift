@@ -75,7 +75,7 @@ class MainViewController: BaseViewController {
             return
         }
         
-        dateLabel.text = currentForecast!.date.dateToWeekDate()
+//        dateLabel.text = currentForecast!.date.dateToWeekDate()
         
     }
     
@@ -87,6 +87,7 @@ class MainViewController: BaseViewController {
         API.instance.getForecastDaily() { (result) in
             switch (result) {
             case .success(let object):
+                print("SUCCESS")
                 guard let forecasts = object as? [Forecast] else {
                     print("Unable to find objects")
                     self.forecastArray = []
@@ -138,7 +139,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? WeatherCollectionViewCell {
             let forecast = forecastArray[indexPath.row]
             cell.setUpCell(forecast: forecast)
-            cell.imageView.image = forecast.iconDayImage
+            cell.imageView.image = forecast.iconImage
             
             return cell
         }

@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 
 /*
- API: https://developer.accuweather.com/
+ API: https://darksky.net/ AKA forecast.io
 */
 
 enum APIError: Error {
@@ -29,87 +29,66 @@ class API {
     private init() {}
     
     let configurationManager = ConfigurationManager.instance
-    let params: [String: Any] = [
-        "apikey": ConfigurationManager.instance.getAPIKey()
-    ]
+    let apikey = ConfigurationManager.instance.getAPIKey()
     
     // GET FORECAST
     func getForecastDaily(completion: @escaping (GetResult) -> ()) {
-        if let url = getURL(urlKey: .GETFORECASTDAYS,  StateData.instance.staticLocationKey) {
+        let stateData = StateData.instance
+        if let url = getURL(urlKey: .GETFORECAST, latitude: stateData.staticLat, longitude: stateData.staticLong) {
             
-            Alamofire.request(url, method: .get, parameters: params, encoding: URLEncoding.queryString).responseJSON { (response) in
+            Alamofire.request(url).responseJSON { (response) in
                 
                 guard response.result.error == nil else {
                     return completion(.failure(response.result.error!))
                 }
-                
-                print(response.result.value)
                 
                 guard let json = response.result.value as? Dictionary<String, Any> else {
                     print("Unexpected result value")
                     return completion(.failure(APIError.invalidJSONData))
                 }
                 
-                guard let jsonArray = json["DailyForecasts"] as? [Dictionary<String, Any>] else {
+                // CURRENT FORECAST
+                guard let currentDict = json["currently"] as? Dictionary<String, Any> else {
+                    print("Unexpected result value")
+                    return completion(.failure(APIError.invalidJSONData))
+                }
+                
+                // DAILY FORECASTS
+                guard let dailyJson = json["daily"] as? Dictionary<String, Any> , let jsonArray = dailyJson["data"] as? [Dictionary<String, Any>] else {
                     print("Unexpected result value")
                     return completion(.failure(APIError.invalidJSONData))
                 }
                 
                 var forecastArray = [Forecast]()
 
-                for object in jsonArray {
-                    let forecast = Forecast(dict: object)
+                for i in 0..<jsonArray.count {
+                    let dict = jsonArray[i]
+                    var forecast: Forecast!
+                    if i == 0 {
+                        // ADDS CURRENT TEMP TO CURRENT FORECAST
+                        forecast = Forecast(dict: dict, currentDict)
+                        print(forecast.date.dateToWeekDay())
+                    } else {
+                        forecast = Forecast(dict: dict)
+                    }
                     forecastArray.append(forecast)
                 }
                 
-                var sortedArray = forecastArray.sorted(by: { $0.epochDate < $1.epochDate } )
-                sortedArray.remove(at: 0)
-                
-                return completion(.success(sortedArray))
+                return completion(.success(forecastArray))
             }
         } else {
             return completion(.failure(APIError.invalidURL))
         }
     }
     
-    // GET CITIES
-    func getCities(string: String, completion: @escaping (GetResult) -> ()) {
-        if let url = getURL(urlKey: .GETCITY) {
-            var parameters: [String: Any] = params
-            parameters["q"] = string
-            
-            Alamofire.request(url, method: .get, parameters: parameters, encoding: URLEncoding.queryString).responseJSON { (response) in
-                
-                guard response.result.error == nil else {
-                    return completion(.failure(response.result.error!))
-                }
-                
-                guard let jsonArray = response.result.value as? [Dictionary<String, Any>] else {
-                    print("Unexpected result value")
-                    return completion(.failure(APIError.invalidJSONData))
-                }
-                
-                var locationArray = [Location]()
-
-                for object in jsonArray {
-                    let location = Location(dict: object)
-                    locationArray.append(location)
-                }
-                
-                return completion(.success(locationArray))
-            }
-        }else {
-            return completion(.failure(APIError.invalidURL))
-        }
-    }
-    
-    fileprivate func getURL(urlKey: URLKey, _ locationKey: String? = nil) -> URL? {
-        let urlString = configurationManager.urlForPath(urlKey: urlKey)
-        guard locationKey != nil else {
+    fileprivate func getURL(urlKey: URLKey, latitude: Double?, longitude: Double?) -> URL? {
+        let urlString = configurationManager.urlForPath(urlKey: urlKey).replacingOccurrences(of: "{apikey}", with: apikey)
+        
+        guard latitude != nil && longitude != nil else {
             return URL(string: urlString) ?? nil
         }
-        
-        let componentString = urlString.replacingOccurrences(of: "{locationKey}", with: locationKey!)
+        let latLongString = "\(latitude!),\(longitude!)"
+        let componentString = urlString.replacingOccurrences(of: "{latlong}", with: latLongString)
         return URL(string: componentString) ?? nil
     }
 }

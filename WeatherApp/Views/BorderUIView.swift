@@ -17,11 +17,14 @@ class BorderUIView: UIView {
         layer.cornerRadius = 10.0
         clipsToBounds = true
 
-        if StateData.instance.isNight {
-            layer.borderColor = UIColor.white.cgColor
-        } else {
-            layer.borderColor = UIColor.black.cgColor
-        }
+        layer.borderColor = UIColor.white.cgColor
+
+//        
+//        if StateData.instance.isNight {
+//            layer.borderColor = UIColor.white.cgColor
+//        } else {
+//            layer.borderColor = UIColor.black.cgColor
+//        }
     }
 
 }

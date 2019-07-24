@@ -16,5 +16,6 @@ class StateData {
     public var isMetric: Bool = false
     public var isNight: Bool = false
     
-    let staticLocationKey = "348794"
+    public var staticLat = 44.223068
+    public var staticLong = -95.472603
 }

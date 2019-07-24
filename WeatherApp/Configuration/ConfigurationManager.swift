@@ -10,9 +10,7 @@ import UIKit
 
 enum URLKey: String {
     case APIKEY = "API_KEY"
-    case GETCITY = "GET_CITY"
-    case GETFORECASTDAYS = "GET_FORECAST_DAYS"
-    case GETFORECASTHOURLY = "GET_FORECAST_HOURLY"
+    case GETFORECAST = "GET_FORECAST"
 }
 
 class ConfigurationManager {

@@ -47,11 +47,20 @@
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EhG-Nx-giE" customClass="BorderUIView" customModule="WeatherApp" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="125" height="175"/>
                                                                     <subviews>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="Iih-Sk-9xx">
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clear-day" translatesAutoresizingMaskIntoConstraints="NO" id="Iih-Sk-9xx">
                                                                             <rect key="frame" x="0.0" y="0.0" width="125" height="175"/>
                                                                         </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lhg-rk-Z2h">
+                                                                            <rect key="frame" x="34.5" y="77.5" width="56" height="20.5"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="height" constant="20.5" id="GEh-re-x2T"/>
+                                                                            </constraints>
+                                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                                            <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sunny" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="P3t-mX-dOD">
-                                                                            <rect key="frame" x="5" y="35.5" width="115" height="18"/>
+                                                                            <rect key="frame" x="5" y="39" width="115" height="18"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -68,7 +77,7 @@
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0V-FK-AV7">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="S0V-FK-AV7">
                                                                                     <rect key="frame" x="55" y="0.0" width="60" height="21"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <nil key="textColor"/>
@@ -91,7 +100,7 @@
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
-                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9w-4b-lzc">
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="d9w-4b-lzc">
                                                                                     <rect key="frame" x="55" y="0.0" width="60" height="21"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <nil key="textColor"/>
@@ -103,8 +112,8 @@
                                                                             </constraints>
                                                                         </stackView>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thursday" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="v9n-Fq-rNb">
-                                                                            <rect key="frame" x="5" y="10" width="115" height="20.5"/>
-                                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                            <rect key="frame" x="5" y="10" width="115" height="24"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
@@ -118,9 +127,11 @@
                                                                         <constraint firstItem="tFf-hV-j2a" firstAttribute="top" secondItem="Mkp-BU-NvQ" secondAttribute="bottom" constant="5" id="MyL-LU-tsU"/>
                                                                         <constraint firstItem="Iih-Sk-9xx" firstAttribute="leading" secondItem="EhG-Nx-giE" secondAttribute="leading" id="OGf-gH-N5t"/>
                                                                         <constraint firstItem="v9n-Fq-rNb" firstAttribute="top" secondItem="EhG-Nx-giE" secondAttribute="top" constant="10" id="QvT-fA-Jb0"/>
+                                                                        <constraint firstItem="lhg-rk-Z2h" firstAttribute="centerX" secondItem="EhG-Nx-giE" secondAttribute="centerX" id="T4F-w2-5z3"/>
                                                                         <constraint firstAttribute="trailing" secondItem="Iih-Sk-9xx" secondAttribute="trailing" id="W62-b6-Lft"/>
                                                                         <constraint firstAttribute="trailing" secondItem="P3t-mX-dOD" secondAttribute="trailing" constant="5" id="XbS-KL-6bg"/>
                                                                         <constraint firstAttribute="bottom" secondItem="tFf-hV-j2a" secondAttribute="bottom" constant="10" id="cbi-45-hWT"/>
+                                                                        <constraint firstItem="lhg-rk-Z2h" firstAttribute="centerY" secondItem="EhG-Nx-giE" secondAttribute="centerY" id="eRN-5C-cyi"/>
                                                                         <constraint firstAttribute="trailing" secondItem="tFf-hV-j2a" secondAttribute="trailing" constant="5" id="eom-YN-dys"/>
                                                                         <constraint firstItem="v9n-Fq-rNb" firstAttribute="leading" secondItem="EhG-Nx-giE" secondAttribute="leading" constant="5" id="mQX-0e-q8q"/>
                                                                         <constraint firstItem="Mkp-BU-NvQ" firstAttribute="leading" secondItem="EhG-Nx-giE" secondAttribute="leading" constant="5" id="oBg-NM-Ttt"/>
@@ -138,6 +149,7 @@
                                                             <constraint firstAttribute="trailing" secondItem="EhG-Nx-giE" secondAttribute="trailing" id="vl9-FO-2xf"/>
                                                         </constraints>
                                                         <connections>
+                                                            <outlet property="currentTempLabel" destination="lhg-rk-Z2h" id="vdv-3J-NR5"/>
                                                             <outlet property="dateLabel" destination="v9n-Fq-rNb" id="4wF-yx-ne8"/>
                                                             <outlet property="highTempLabel" destination="S0V-FK-AV7" id="w04-Kt-PqC"/>
                                                             <outlet property="imageView" destination="Iih-Sk-9xx" id="KP6-cK-tCe"/>
@@ -330,6 +342,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1" width="75" height="45"/>
+        <image name="clear-day" width="128" height="128"/>
     </resources>
 </document>
