@@ -43,6 +43,8 @@ class API {
                     return completion(.failure(response.result.error!))
                 }
                 
+                print(response.result.value)
+                
                 guard let json = response.result.value as? Dictionary<String, Any> else {
                     print("Unexpected result value")
                     return completion(.failure(APIError.invalidJSONData))
@@ -60,7 +62,10 @@ class API {
                     forecastArray.append(forecast)
                 }
                 
-                return completion(.success(""))
+                var sortedArray = forecastArray.sorted(by: { $0.epochDate < $1.epochDate } )
+                sortedArray.remove(at: 0)
+                
+                return completion(.success(sortedArray))
             }
         } else {
             return completion(.failure(APIError.invalidURL))
@@ -91,7 +96,7 @@ class API {
                     locationArray.append(location)
                 }
                 
-                return completion(.success(""))
+                return completion(.success(locationArray))
             }
         }else {
             return completion(.failure(APIError.invalidURL))

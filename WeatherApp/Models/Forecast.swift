@@ -26,8 +26,6 @@ class Forecast {
         _day = TimeOfDay(dict: dict, isNight: false)
         _temperature = Temperature(dict: dict)
         _urlLink = dict[Keys.Link.rawValue] as? String
-        
-        print(date)
     }
     
     var date: Date {
@@ -36,5 +34,65 @@ class Forecast {
         }
         
         return Date(timeIntervalSince1970: TimeInterval(_epochDate!))
+    }
+    
+    var epochDate: Int {
+        if (_epochDate == nil) {
+            return 0
+        }
+        
+        return _epochDate!
+    }
+    
+    var temperature: Temperature {
+        if (_temperature == nil) {
+            return Temperature()
+        }
+        
+        return _temperature!
+    }
+    
+    var day: TimeOfDay {
+        if (_day == nil) {
+            return TimeOfDay()
+        }
+        
+        return _day!
+    }
+    
+    var night: TimeOfDay {
+        if (_night == nil) {
+            return TimeOfDay()
+        }
+        
+        return _night!
+    }
+    
+    var urlLink: String {
+        if (_urlLink == nil) {
+            return ""
+        }
+        
+        return _urlLink!
+    }
+    
+    var iconDayImage: UIImage {
+        let image = UIImage(named: day.icon.intToString())
+        
+        if (image == nil) {
+            return UIImage(named: "1")!
+        }
+        
+        return image!
+    }
+    
+    var iconNightImage: UIImage {
+        let image = UIImage(named: night.icon.intToString())
+        
+        if (image == nil) {
+            return UIImage(named: "1")!
+        }
+        
+        return image!
     }
 }

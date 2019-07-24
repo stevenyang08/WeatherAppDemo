@@ -24,6 +24,7 @@ class TimeOfDay {
             if let night = dict[Keys.Night.rawValue] as? [String: Any],
                 let icon = night[Keys.Icon.rawValue] as? Int,
                 let phrase = night[Keys.Phrase.rawValue] as? String {
+                print(night)
                 _icon = icon
                 _iconPhrase = phrase
             }
@@ -31,6 +32,7 @@ class TimeOfDay {
             if let day = dict[Keys.Day.rawValue] as? [String: Any],
                 let icon = day[Keys.Icon.rawValue] as? Int,
                 let phrase = day[Keys.Phrase.rawValue] as? String {
+                print(day)
                 _icon = icon
                 _iconPhrase = phrase
             }

@@ -10,6 +10,10 @@ import Foundation
 
 extension Int {
     
+    func intToString() -> String {
+        return String(self)
+    }
+    
     func intToDouble() -> Double {
         return Double(self)
     }

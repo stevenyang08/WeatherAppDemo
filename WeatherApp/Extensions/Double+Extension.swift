@@ -12,6 +12,11 @@ extension Double {
     
     func convertToCelsius() -> Double {
         let temperature = (self - 32) / 1.8
-        return temperature
+        return temperature.rounded(toPlaces: 1)
+    }
+    
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }

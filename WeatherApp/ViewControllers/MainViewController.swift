@@ -15,15 +15,26 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var currentTemperatureLabel: UILabel!
     @IBOutlet weak var tempSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var collectionView: UICollectionView!
     
+    var forecastArray: [Forecast] = []
+    var currentForecast: Forecast?
     var selectedForecast: Forecast?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        checkIfFirstLogin()
+        
+        // Intial Set Up
+        if StateData.instance.isMetric {
+            tempSegmentedControl.selectedSegmentIndex = 1
+        } else {
+            tempSegmentedControl.selectedSegmentIndex = 2
+        }
+        
         updateUI()
         
-        loadForcast()
+        loadData()
 
         // Do any additional setup after loading the view.
     }
@@ -47,26 +58,53 @@ class MainViewController: BaseViewController {
     @IBAction func temperatureSegmentControlClicked(_ sender: UISegmentedControl) {
         switch (sender.selectedSegmentIndex) {
         case 0:
-            print("Fahrenheit")
             StateData.instance.isMetric = false
             PersistenceManager.save(false as AnyObject, path: .IsMetric)
         case 1:
-            print("Celsius")
             StateData.instance.isMetric = true
             PersistenceManager.save(true as AnyObject, path: .IsMetric)
         default:
             return
         }
+        
+        collectionView.reloadData()
     }
     
     func updateUI() {
-        if StateData.instance.isMetric {
-            tempSegmentedControl.selectedSegmentIndex = 1
-        } else {
-            tempSegmentedControl.selectedSegmentIndex = 2
+        guard currentForecast != nil else {
+            return
         }
+        
+        dateLabel.text = currentForecast!.date.dateToWeekDate()
+        
     }
     
+    func loadData() {
+        loadForcast()
+    }
+    
+    func loadForcast() {
+        API.instance.getForecastDaily() { (result) in
+            switch (result) {
+            case .success(let object):
+                guard let forecasts = object as? [Forecast] else {
+                    print("Unable to find objects")
+                    self.forecastArray = []
+                    self.collectionView.reloadData()
+                    return
+                }
+                self.forecastArray = forecasts
+                self.collectionView.reloadData()
+            case .failure(let error):
+                print("ERROR \(error)")
+                self.forecastArray = []
+                self.collectionView.reloadData()
+            }
+        }
+        
+    }
+    
+    // Login Check
     func checkIfFirstLogin() {
         let firstLaunch = UserDefaults.standard.bool(forKey: "first_launch")
         switch firstLaunch {
@@ -81,17 +119,6 @@ class MainViewController: BaseViewController {
         let vc = LocationViewController()
         present(vc, animated: true, completion: nil)
     }
-    
-    func loadForcast() {
-        API.instance.getForecastDaily() { (result) in
-            switch (result) {
-            case .success(_):
-                print("Success")
-            case .failure(let error):
-                print("ERROR \(error)")
-            }
-        }
-    }
 
     // MARK: - Navigation
     
@@ -104,10 +131,19 @@ class MainViewController: BaseViewController {
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return forecastArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? WeatherCollectionViewCell {
+            let forecast = forecastArray[indexPath.row]
+            cell.setUpCell(forecast: forecast)
+            cell.imageView.image = forecast.iconDayImage
+            
+            return cell
+        }
+        
+        
         return UICollectionViewCell()
     }
 }
