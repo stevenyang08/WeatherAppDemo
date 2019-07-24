@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>GET_CITY</key>
+	<string>http://dataservice.accuweather.com/locations/v1/cities/autocomplete</string>
+	<key>GET_FORECAST_DAYS</key>
+	<string>http://dataservice.accuweather.com/forecasts/v1/daily/5day/{locationKey}</string>
+	<key>GET_FORECAST_HOURLY</key>
+	<string>http://dataservice.accuweather.com/forecasts/v1/hourly/12hour/{locationKey}</string>
+	<key>API_KEY</key>
+	<string>uJ11A214Pz4zjNGYugZFQIik6xMMQExi</string>
+</dict>
+</plist>

@@ -1,5 +1,5 @@
 //
-//  RoundedBorderButton.swift
+//  RoundedColoredBorderButton.swift
 //  WeatherApp
 //
 //  Created by Steven on 7/23/19.
@@ -8,14 +8,17 @@
 
 import UIKit
 
-class RoundedBorderButton: UIButton {
-    
+class RoundedColoredBorderUIButton: UIButton {
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
         layer.cornerRadius = 20.0
         layer.borderWidth = 2.0
-        layer.borderColor = UIColor.black.cgColor
+        layer.borderColor = UIColor.darkGray.cgColor
         clipsToBounds = true
+        backgroundColor = UIColor.darkGray
+        setTitleColor(UIColor.white, for: .normal)
     }
+
 }

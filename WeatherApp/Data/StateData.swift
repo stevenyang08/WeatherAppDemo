@@ -12,4 +12,7 @@ class StateData {
     static let instance = StateData()
     private init() {}
     
+    var location: Location?
+    
+    let staticLocationKey = "348794"
 }

@@ -1,5 +1,5 @@
 //
-//  WeatherDetailViewController.swift
+//  BaseViewController.swift
 //  WeatherApp
 //
 //  Created by Steven on 7/23/19.
@@ -8,9 +8,7 @@
 
 import UIKit
 
-class WeatherDetailViewController: BaseViewController {
-
-    var forecast: Forecast?
+class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

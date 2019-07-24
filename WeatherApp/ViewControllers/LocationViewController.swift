@@ -7,24 +7,40 @@
 //
 
 import UIKit
+import CoreLocation
 
-class LocationViewController: UIViewController {
-
+class LocationViewController: BaseViewController {
+    
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var doneButton: RoundedColoredBorderUIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
 
         // Do any additional setup after loading the view.
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func doneButtonClicked(_ sender: RoundedColoredBorderUIButton) {
     }
-    */
+    
+    @IBAction func cancelButtonClicked(_ sender: RoundedBorderUIButton) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func checkIfFirstLaunch() {
+//        let firstLaunch = UserDefaults.standard.bool(forKey: "first_launch")
+//        switch firstLaunch {
+//        case true:
+//
+//        case false:
+//            return
+//        }
+    }    
+}
 
+extension LocationViewController: UISearchBarDelegate {
+    
 }

@@ -10,6 +10,19 @@ import UIKit
 
 class Location: NSObject {
 
-    private var city: String?
-    private var state: String?
+    private var _city: String?
+    private var _state: String?
+    private var _locationKey: String?
+    
+    init(dict: Dictionary<String, Any>) {
+        
+    }
+    
+    var locationKey: String {
+        if (_locationKey == nil) {
+            return ""
+        }
+        
+        return _locationKey!
+    }
 }
