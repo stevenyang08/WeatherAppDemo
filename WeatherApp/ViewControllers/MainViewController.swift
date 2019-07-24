@@ -13,12 +13,15 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var currentTemperatureLabel: UILabel!
+    @IBOutlet weak var tempSegmentedControl: UISegmentedControl!
     
     var selectedForecast: Forecast?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 //        checkIfFirstLogin()
+        updateUI()
         
         loadForcast()
 
@@ -33,6 +36,7 @@ class MainViewController: BaseViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
@@ -42,12 +46,24 @@ class MainViewController: BaseViewController {
     
     @IBAction func temperatureSegmentControlClicked(_ sender: UISegmentedControl) {
         switch (sender.selectedSegmentIndex) {
-        case 1:
+        case 0:
             print("Fahrenheit")
-        case 2:
+            StateData.instance.isMetric = false
+            PersistenceManager.save(false as AnyObject, path: .IsMetric)
+        case 1:
             print("Celsius")
+            StateData.instance.isMetric = true
+            PersistenceManager.save(true as AnyObject, path: .IsMetric)
         default:
             return
+        }
+    }
+    
+    func updateUI() {
+        if StateData.instance.isMetric {
+            tempSegmentedControl.selectedSegmentIndex = 1
+        } else {
+            tempSegmentedControl.selectedSegmentIndex = 2
         }
     }
     

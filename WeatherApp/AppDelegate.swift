@@ -17,6 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        if let isMetric = PersistenceManager.load(.IsMetric) as? Bool {
+            print(isMetric)
+            StateData.instance.isMetric = isMetric
+        }
+        
         return true
     }
 

@@ -149,8 +149,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="zBb-kk-AcR"/>
                     <connections>
+                        <outlet property="currentTemperatureLabel" destination="oPM-sS-y4b" id="C8T-Iu-8Bm"/>
                         <outlet property="dateLabel" destination="oe8-LR-28V" id="EyG-xG-FEh"/>
                         <outlet property="locationLabel" destination="VOo-F1-Rqq" id="QPt-g6-Jro"/>
+                        <outlet property="tempSegmentedControl" destination="3qE-sQ-8Uk" id="5th-xj-pzp"/>
                         <outlet property="weatherImageView" destination="8V0-fb-tUM" id="4na-37-9X0"/>
                         <segue destination="h5b-JG-l6I" kind="show" identifier="toDetailVC" id="WxP-fl-WMn"/>
                     </connections>
