@@ -25,6 +25,8 @@
 		3C12F2F222E7FCF6006753B8 /* TimeOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12F2F122E7FCF6006753B8 /* TimeOfDay.swift */; };
 		3C12F2F422E7FE72006753B8 /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12F2F322E7FE72006753B8 /* Temperature.swift */; };
 		3C12F2F922E8036D006753B8 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12F2F822E8036D006753B8 /* Int+Extension.swift */; };
+		3C12F2FB22E81C31006753B8 /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12F2FA22E81C31006753B8 /* Double+Extension.swift */; };
+		3C12F2FD22E81F2B006753B8 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C12F2FC22E81F2B006753B8 /* PersistenceManager.swift */; };
 		3C32827622E791CE00AF4244 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C32827522E791CE00AF4244 /* AppDelegate.swift */; };
 		3C32827B22E791CE00AF4244 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C32827922E791CE00AF4244 /* Main.storyboard */; };
 		3C32827E22E791CE00AF4244 /* WeatherApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C32827C22E791CE00AF4244 /* WeatherApp.xcdatamodeld */; };
@@ -53,6 +55,8 @@
 		3C12F2F122E7FCF6006753B8 /* TimeOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOfDay.swift; sourceTree = "<group>"; };
 		3C12F2F322E7FE72006753B8 /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 		3C12F2F822E8036D006753B8 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		3C12F2FA22E81C31006753B8 /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		3C12F2FC22E81F2B006753B8 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		3C32827222E791CE00AF4244 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C32827522E791CE00AF4244 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C32827A22E791CE00AF4244 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				3C12F2CC22E7AE5B006753B8 /* API.swift */,
+				3C12F2FC22E81F2B006753B8 /* PersistenceManager.swift */,
 				3C12F2DA22E7B71E006753B8 /* StateData.swift */,
 			);
 			path = Data;
@@ -149,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				3C12F2F822E8036D006753B8 /* Int+Extension.swift */,
+				3C12F2FA22E81C31006753B8 /* Double+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -325,6 +331,7 @@
 			files = (
 				3C12F2EB22E7DC7B006753B8 /* BaseViewController.swift in Sources */,
 				3C12F2E922E7D19D006753B8 /* RoundedColoredBorderUIButton.swift in Sources */,
+				3C12F2FB22E81C31006753B8 /* Double+Extension.swift in Sources */,
 				3C12F2F222E7FCF6006753B8 /* TimeOfDay.swift in Sources */,
 				3C12F2F922E8036D006753B8 /* Int+Extension.swift in Sources */,
 				3C12F2D022E7AE71006753B8 /* WeatherDetailViewController.swift in Sources */,
@@ -338,6 +345,7 @@
 				3C12F2E722E7CEB3006753B8 /* RoundedBorderUIButton.swift in Sources */,
 				3C12F2F022E7E285006753B8 /* ConfigurationManager.swift in Sources */,
 				3C12F2DB22E7B71E006753B8 /* StateData.swift in Sources */,
+				3C12F2FD22E81F2B006753B8 /* PersistenceManager.swift in Sources */,
 				3C12F2CD22E7AE5B006753B8 /* API.swift in Sources */,
 				3C12F2D622E7B40C006753B8 /* WeatherCollectionViewCell.swift in Sources */,
 			);

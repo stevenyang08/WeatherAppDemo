@@ -25,6 +25,17 @@ class MainViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     @IBAction func changeCityButtonClicked(_ sender: Any) {
         presentLocationViewController()
     }
@@ -56,7 +67,7 @@ class MainViewController: BaseViewController {
     }
     
     func loadForcast() {
-        API.instance.getCities(string: "minneapolis") { (result) in
+        API.instance.getForecastDaily() { (result) in
             switch (result) {
             case .success(_):
                 print("Success")

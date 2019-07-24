@@ -12,7 +12,8 @@ class StateData {
     static let instance = StateData()
     private init() {}
     
-    var location: Location?
+    public var location: Location?
+    public var isMetric: Bool = false
     
     let staticLocationKey = "348794"
 }
