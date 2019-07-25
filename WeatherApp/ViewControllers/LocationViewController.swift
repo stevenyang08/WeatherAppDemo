@@ -19,6 +19,7 @@ class LocationViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        LogManager.instance.Log.debug("Loaded", self)
         
         locationTextfield.delegate = self
         // Do any additional setup after loading the view.

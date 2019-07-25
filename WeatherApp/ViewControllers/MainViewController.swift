@@ -29,6 +29,8 @@ class MainViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        LogManager.instance.Log.debug("Loaded", self)
+
         locationManager.delegate = self
         
         // Intial Set Up
@@ -233,6 +235,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let forecast = forecastArray[indexPath.row]
         selectedForecast = forecast
+        LogManager.instance.Log.trace("Collection View Tapped")
+
         performSegue(withIdentifier: "toDetailVC", sender: self)
     }
     

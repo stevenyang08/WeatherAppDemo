@@ -10,9 +10,9 @@ import UIKit
 
 class WeatherDetailViewController: BaseViewController {
 
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var weekDayLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var weatherLabel: UILabel!
+    @IBOutlet weak var weatherDetailLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var tempHighLabel: UILabel!
@@ -26,17 +26,17 @@ class WeatherDetailViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        LogManager.instance.Log.debug("Loaded", self)
 
         updateUI()
         // Do any additional setup after loading the view.
     }
     
     private func updateUI() {
-        locationLabel.text = StateData.instance.location.cityState()
-        
         if let forecast = forecast {
-            weekDayLabel.text = forecast.date.dateToWeekDay()
             dateLabel.text = forecast.date.dateToWeekDate()
+            weatherLabel.text = forecast.weather
+            weatherDetailLabel.text = forecast.summary
             imageView.image = forecast.iconImage
             tempHighLabel.text = forecast.temperatureString(temperatureType: .TemperatureHigh)
             tempLowLabel.text = forecast.temperatureString(temperatureType: .TemperatureLow)
@@ -45,10 +45,5 @@ class WeatherDetailViewController: BaseViewController {
             currentTempLabel.text = forecast.temperatureString(temperatureType: .Temperature)
             feelsLikeTempLabel.text = forecast.temperatureString(temperatureType: .ApparentTemperature)
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationController?.title = "Details"
     }
 }

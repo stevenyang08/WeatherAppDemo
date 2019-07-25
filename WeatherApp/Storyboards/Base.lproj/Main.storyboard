@@ -408,7 +408,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="4KN-eU-SJ6"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -606,14 +606,14 @@
                     </view>
                     <connections>
                         <outlet property="currentTempLabel" destination="mpW-fE-kaa" id="cAy-dF-4tB"/>
-                        <outlet property="dateLabel" destination="8f6-6Z-2j1" id="FPf-bW-COw"/>
+                        <outlet property="dateLabel" destination="pkm-Uo-aiy" id="90m-D5-HJd"/>
                         <outlet property="feelsLikeTempLabel" destination="0NI-Yr-tPR" id="AQc-bb-kOb"/>
                         <outlet property="humidityLabel" destination="Noj-fr-Cle" id="SRF-lM-hUN"/>
                         <outlet property="imageView" destination="J1r-dr-Lha" id="q7k-ry-H5X"/>
-                        <outlet property="locationLabel" destination="pkm-Uo-aiy" id="orx-3f-EqK"/>
                         <outlet property="tempHighLabel" destination="CZM-R0-MLN" id="a9p-Au-T7A"/>
                         <outlet property="tempLowLabel" destination="dMB-1A-PcW" id="Ico-36-g9p"/>
-                        <outlet property="weekDayLabel" destination="bIY-0l-p4V" id="Yd2-cg-lkj"/>
+                        <outlet property="weatherDetailLabel" destination="8f6-6Z-2j1" id="8dt-db-QH8"/>
+                        <outlet property="weatherLabel" destination="bIY-0l-p4V" id="tje-f7-URK"/>
                         <outlet property="windSpeedLabel" destination="ve1-4l-Wu4" id="siJ-Ga-NZ9"/>
                     </connections>
                 </viewController>
