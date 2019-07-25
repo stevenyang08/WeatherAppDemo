@@ -10,10 +10,14 @@ import UIKit
 
 class MainViewController: BaseViewController {
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var currentTemperatureLabel: UILabel!
+    @IBOutlet weak var highTempLabel: UILabel!
+    @IBOutlet weak var lowTempLabel: UILabel!
     @IBOutlet weak var tempSegmentedControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -32,11 +36,13 @@ class MainViewController: BaseViewController {
             tempSegmentedControl.selectedSegmentIndex = 2
         }
         
-        updateUI()
+        // Adds Refresh
+        refreshControl = UIRefreshControl()
+        refreshControl!.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        scrollView.addSubview(refreshControl!)
         
+        // Loads API Data
         loadData()
-
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +56,8 @@ class MainViewController: BaseViewController {
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
+    
+    // MARK: - Ibactions
     
     @IBAction func changeCityButtonClicked(_ sender: Any) {
         presentLocationViewController()
@@ -67,42 +75,59 @@ class MainViewController: BaseViewController {
             return
         }
         
-        collectionView.reloadData()
+        updateUI()
+        reloadData()
+    }
+    
+    // MARK: - Functions
+    
+    @objc func refresh(_ sender: AnyObject) {
+        loadData()
     }
     
     func updateUI() {
-        guard currentForecast != nil else {
-            return
+        if let current = currentForecast {
+            dateLabel.text = current.date.dateToWeekDate()
+            weatherImageView.image = current.iconImage
+            currentTemperatureLabel.text = current.temperatureString(temperatureType: .Temperature)
+            highTempLabel.text = current.temperatureString(temperatureType: .TemperatureHigh)
+            lowTempLabel.text = current.temperatureString(temperatureType: .TemperatureLow)
         }
-        
-//        dateLabel.text = currentForecast!.date.dateToWeekDate()
-        
     }
     
     func loadData() {
-        loadForcast()
-    }
-    
-    func loadForcast() {
+        startIndicator()
         API.instance.getForecastDaily() { (result) in
             switch (result) {
             case .success(let object):
                 print("SUCCESS")
-                guard let forecasts = object as? [Forecast] else {
+                guard let forecasts = object as? [Forecast], let current = forecasts.first else {
                     print("Unable to find objects")
                     self.forecastArray = []
-                    self.collectionView.reloadData()
+                    self.reloadData()
                     return
                 }
-                self.forecastArray = forecasts
-                self.collectionView.reloadData()
+                var array = forecasts
+                array.removeFirst()
+                self.forecastArray = array
+                self.currentForecast = current
+                self.updateUI()
+                self.reloadData()
             case .failure(let error):
                 print("ERROR \(error)")
                 self.forecastArray = []
-                self.collectionView.reloadData()
+                self.reloadData()
             }
         }
+    }
+    
+    func reloadData() {
+        if (self.activityIndicator.isAnimating) {
+            self.stopIndicator()
+        }
         
+        stopRefreshing()
+        collectionView.reloadData()
     }
     
     // Login Check
@@ -128,6 +153,8 @@ class MainViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
 }
+
+// MARK: - CollectionView
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
