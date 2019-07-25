@@ -140,6 +140,28 @@ class Forecast {
         return _tempLow!
     }
     
+    var humidity: String {
+        if (_humidity == nil) {
+            return "0%"
+        }
+        
+        let number = _humidity! * 100
+        return String("\(number)%")
+    }
+    
+    var windSpeed: String {
+        if (_windSpeed == nil) {
+            return "--"
+        }
+        
+        if (StateData.instance.isMetric) {
+            return String("\(_windSpeed!.mphToKmh.rounded(toPlaces: 0))km/h")
+        } else {
+            return String("\(_windSpeed!.rounded(toPlaces: 0))mph")
+        }
+        
+    }
+    
     var apparentTemperature: Double {
         get {
             if (_apparentTemperature == nil) {

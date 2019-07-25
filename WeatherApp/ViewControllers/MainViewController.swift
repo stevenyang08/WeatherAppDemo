@@ -71,6 +71,13 @@ class MainViewController: BaseViewController {
         presentLocationViewController()
     }
     
+    @IBAction func detailButtonClicked(_ sender: Any) {
+        if let forecast = currentForecast {
+            selectedForecast = forecast
+            self.performSegue(withIdentifier: "toDetailVC", sender: nil)
+        }
+    }
+    
     @IBAction func temperatureSegmentControlClicked(_ sender: UISegmentedControl) {
         switch (sender.selectedSegmentIndex) {
         case 0:
@@ -156,7 +163,7 @@ class MainViewController: BaseViewController {
     }
     
     fileprivate func checkCurrentLocation() {
-    switch CLLocationManager.authorizationStatus() {
+        switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
         default:
@@ -185,10 +192,13 @@ class MainViewController: BaseViewController {
             }
         }
     }
-
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? WeatherDetailViewController {
+            destination.forecast = selectedForecast
+        }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
@@ -213,6 +223,12 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let forecast = forecastArray[indexPath.row]
+        selectedForecast = forecast
+        performSegue(withIdentifier: "toDetailVC", sender: self)
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

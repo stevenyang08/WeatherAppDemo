@@ -82,7 +82,7 @@ class API {
         }
     }
     
-    fileprivate func getURL(urlKey: URLKey, latitude: Double?, longitude: Double?) -> URL? {
+    private func getURL(urlKey: URLKey, latitude: Double?, longitude: Double?) -> URL? {
         let urlString = configurationManager.urlForPath(urlKey: urlKey).replacingOccurrences(of: "{apikey}", with: apikey)
         
         guard latitude != nil && longitude != nil else {

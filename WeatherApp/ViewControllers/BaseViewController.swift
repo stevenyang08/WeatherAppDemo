@@ -20,7 +20,7 @@ class BaseViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    fileprivate func addActivityIndicator() {
+    private func addActivityIndicator() {
         // CAN CREATE CUSTOM OBJECT FOR THIS AS WELL
         activityIndicator = UIActivityIndicatorView()
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 80, height: 80)

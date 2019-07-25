@@ -23,4 +23,9 @@ extension Double {
     var doubleToString: String {
         return String(self)
     }
+    
+    var mphToKmh: Double {
+        let number = self * 1.609344
+        return number
+    }
 }
