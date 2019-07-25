@@ -27,8 +27,9 @@ class PersistenceManager {
             let data = try NSKeyedArchiver.archivedData(withRootObject: save, requiringSecureCoding: false)
             try data.write(to: filePath)
             print("Success saving data")
+            LogManager.instance.Log.trace("Success saving data")
         } catch let err {
-            print("Error saving data. \(err)")
+            LogManager.instance.Log.error(err, terminator: "Unable to save data")
         }
     }
     

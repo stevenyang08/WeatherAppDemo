@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 enum URLKey: String {
     case APIKEY = "API_KEY"
     case GOOGLEAPIKEY = "GOOGLE_API_KEY"
@@ -16,6 +17,7 @@ enum URLKey: String {
 
 class ConfigurationManager {
     static let instance = ConfigurationManager()
+    
     private init() {}
     
     func urlForPath(urlKey: URLKey) -> String {

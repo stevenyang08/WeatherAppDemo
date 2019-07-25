@@ -70,6 +70,7 @@ class Forecast {
     
     var date: Date {
         if (_time == nil) {
+            LogManager.instance.Log.warning("Date value for Forecast is nil")
             return Date()
         }
         
@@ -86,6 +87,7 @@ class Forecast {
     
     var summary: String {
         if (_summary == nil) {
+            LogManager.instance.Log.warning("Summary value for Forecast is nil")
             return ""
         }
         
@@ -108,6 +110,7 @@ class Forecast {
     
     var iconImage: UIImage {
         if (_icon == nil) {
+            LogManager.instance.Log.warning("Unable to find icon image for Forecast")
             return UIImage(named: "clear-day")!
         }
 

@@ -38,25 +38,24 @@ class API {
         if let url = getURL(urlKey: .GETFORECAST, latitude: stateData.location.latitude, longitude: stateData.location.longitude) {
             
             Alamofire.request(url).responseJSON { (response) in
-                
                 guard response.result.error == nil else {
                     return completion(.failure(response.result.error!))
                 }
                 
                 guard let json = response.result.value as? Dictionary<String, Any> else {
-                    print("Unexpected result value")
+                    LogManager.instance.Log.warning("Unexpected result value")
                     return completion(.failure(APIError.invalidJSONData))
                 }
                 
                 // CURRENT FORECAST
                 guard let currentDict = json["currently"] as? Dictionary<String, Any> else {
-                    print("Unexpected result value")
+                    LogManager.instance.Log.warning("Unexpected result value")
                     return completion(.failure(APIError.invalidJSONData))
                 }
                 
                 // DAILY FORECASTS
                 guard let dailyJson = json["daily"] as? Dictionary<String, Any> , let jsonArray = dailyJson["data"] as? [Dictionary<String, Any>] else {
-                    print("Unexpected result value")
+                    LogManager.instance.Log.warning("Unexpected result value")
                     return completion(.failure(APIError.invalidJSONData))
                 }
                 
@@ -68,7 +67,6 @@ class API {
                     if i == 0 {
                         // ADDS CURRENT TEMP TO CURRENT FORECAST
                         forecast = Forecast(dict: dict, currentDict)
-                        print(forecast.date.dateToWeekDay())
                     } else {
                         forecast = Forecast(dict: dict)
                     }

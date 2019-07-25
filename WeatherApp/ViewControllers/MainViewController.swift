@@ -116,11 +116,12 @@ class MainViewController: BaseViewController {
     func loadData() {
         let stateData = StateData.instance
         if (stateData.location.latitude != 0.0 && stateData.location.longitude != 0.0) {
+            LogManager.instance.Log.trace("Loading Data")
             self.startIndicator()
             API.instance.getForecastDaily() { (result) in
                 switch (result) {
                 case .success(let object):
-                    print("SUCCESS")
+                    LogManager.instance.Log.trace("SUCCESS")
                     guard let forecasts = object as? [Forecast], let current = forecasts.first else {
                         print("Unable to find objects")
                         self.forecastArray = []
@@ -134,7 +135,7 @@ class MainViewController: BaseViewController {
                     self.updateUI()
                     self.reloadData()
                 case .failure(let error):
-                    print("ERROR \(error)")
+                    LogManager.instance.Log.error(error, terminator: "Try again")
                     self.forecastArray = []
                     self.reloadData()
                 }
@@ -149,6 +150,8 @@ class MainViewController: BaseViewController {
         
         stopRefreshing()
         collectionView.reloadData()
+        
+        LogManager.instance.Log.trace("Data Reloaded")
     }
     
     // Login Check
@@ -180,6 +183,8 @@ class MainViewController: BaseViewController {
         let clLocation = CLLocation(latitude: latitude, longitude: longitude)
         AppDelegate.geoCoder.reverseGeocodeLocation(clLocation) { (placemarks, err) in
             if let place = placemarks?.first, let city = place.locality, let country = place.isoCountryCode {
+                
+                LogManager.instance.Log.debug("\(city), \(country)")
 
                 StateData.instance.location.city = city
                 StateData.instance.location.country = country
@@ -234,6 +239,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if (status == .authorizedWhenInUse) {
             if let location = manager.location {
+                LogManager.instance.Log.debug("Authorization changed")
+
                 let latitude = location.coordinate.latitude
                 let longitude = location.coordinate.longitude
                 StateData.instance.location.latitude = latitude
