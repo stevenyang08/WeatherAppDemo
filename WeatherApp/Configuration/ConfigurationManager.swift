@@ -10,16 +10,13 @@ import UIKit
 
 enum URLKey: String {
     case APIKEY = "API_KEY"
+    case GOOGLEAPIKEY = "GOOGLE_API_KEY"
     case GETFORECAST = "GET_FORECAST"
 }
 
 class ConfigurationManager {
     static let instance = ConfigurationManager()
     private init() {}
-    
-    func getAPIKey() -> String {
-        return urlForPath(urlKey: .APIKEY)
-    }
     
     func urlForPath(urlKey: URLKey) -> String {
         if let plist = getPlist(), let urlString = plist[urlKey.rawValue] as? String {

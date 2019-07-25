@@ -7,6 +7,8 @@ target 'WeatherApp' do
   use_frameworks!
   pod 'Log', '~> 1.0'
   pod 'Alamofire'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
 
   # Pods for WeatherApp
 

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMaps
+import GooglePlaces
 import CoreData
 
 @UIApplicationMain
@@ -16,6 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let googleApiKey = ConfigurationManager.instance.urlForPath(urlKey: .GOOGLEAPIKEY)
+        GMSPlacesClient.provideAPIKey(googleApiKey)
+        GMSServices.provideAPIKey(googleApiKey)
+
         
         if let isMetric = PersistenceManager.load(.IsMetric) as? Bool {
             print(isMetric)

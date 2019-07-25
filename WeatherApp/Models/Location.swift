@@ -8,81 +8,81 @@
 
 import UIKit
 
-private enum Keys: String {
-    case City = "LocalizedName"
-    case LocationKey = "Key"
-    case State = "AdministrativeArea"
-    case Country = "Country"
-    case Id = "ID"
-}
-
-class Location: NSObject, NSCoding {
+class Location {
 
     private var _city: String?
     private var _state: String?
     private var _country: String?
-    private var _locationKey: String?
+    private var _latitude: Double?
+    private var _longitude: Double?
     
-    init(dict: Dictionary<String, Any>) {
-        _city = dict[Keys.City.rawValue] as? String
-        _locationKey = dict[Keys.LocationKey.rawValue] as? String
-        
-        if let area = dict[Keys.State.rawValue] as? [String: Any], let state = area[Keys.Id.rawValue] as? String {
-            _state = state
-        }
-        
-        if let countryDict = dict[Keys.Country.rawValue] as? [String: Any], let country = countryDict[Keys.Id.rawValue] as? String {
-            _country = country
-        }
-    }
-    
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(_city, forKey: Keys.City.rawValue)
-        aCoder.encode(_state, forKey: Keys.State.rawValue)
-        aCoder.encode(_country, forKey: Keys.Country.rawValue)
-        aCoder.encode(_locationKey, forKey: Keys.LocationKey.rawValue)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        _city = aDecoder.decodeObject(forKey: Keys.City.rawValue) as? String
-        _state = aDecoder.decodeObject(forKey: Keys.State.rawValue) as? String
-        _country = aDecoder.decodeObject(forKey: Keys.Country.rawValue) as? String
-        _locationKey = aDecoder.decodeObject(forKey: Keys.LocationKey.rawValue) as? String
-    }
-    
-    var locationKey: String {
-        if (_locationKey == nil) {
-            return ""
-        }
-        
-        return _locationKey!
-    }
+    init() {}
     
     var city: String {
-        if (_city == nil) {
-            return ""
+        get {
+            if (_city == nil) {
+                return ""
+            }
+            
+            return _city!
+        } set {
+            _city = newValue
         }
-        
-        return _city!
     }
     
     var state: String {
-        if (_state == nil) {
-            return ""
+        get {
+            if (_state == nil) {
+                return ""
+            }
+            
+            return _state!
+        } set {
+            _state = newValue
         }
-        
-        return _state!
     }
     
     var country: String {
-        if (_country == nil) {
-            return ""
+        get {
+            if (_country == nil) {
+                return ""
+            }
+            
+            return _country!
+        } set {
+            _country = newValue
         }
-        
-        return _country!
+    }
+    
+    var latitude: Double {
+        get {
+            if (_latitude == nil) {
+                return 0.0
+            }
+            
+            return _latitude!
+        } set {
+            _latitude = newValue
+        }
+    }
+    
+    var longitude: Double {
+        get {
+            if (_longitude == nil) {
+                return 0.0
+            }
+            
+            return _longitude!
+        } set {
+            _longitude = newValue
+        }
     }
     
     func cityState() -> String {
+        if (_city == nil) {
+            return "Select Location"
+        }
+        
         var string = city
         
         if country == "US" {

@@ -47,8 +47,12 @@ class MainViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        if StateData.instance.madeChanges == true {
+            loadData()
+            StateData.instance.madeChanges = false
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -87,36 +91,42 @@ class MainViewController: BaseViewController {
     
     func updateUI() {
         if let current = currentForecast {
+            locationLabel.text = StateData.instance.location.cityState()
             dateLabel.text = current.date.dateToWeekDate()
             weatherImageView.image = current.iconImage
             currentTemperatureLabel.text = current.temperatureString(temperatureType: .Temperature)
             highTempLabel.text = current.temperatureString(temperatureType: .TemperatureHigh)
             lowTempLabel.text = current.temperatureString(temperatureType: .TemperatureLow)
+        } else {
+            dateLabel.text = Date().dateToWeekDate()
         }
     }
     
     func loadData() {
-        startIndicator()
-        API.instance.getForecastDaily() { (result) in
-            switch (result) {
-            case .success(let object):
-                print("SUCCESS")
-                guard let forecasts = object as? [Forecast], let current = forecasts.first else {
-                    print("Unable to find objects")
+        let stateData = StateData.instance
+        if (stateData.latitude != 0.0 && stateData.longitude != 0.0) {
+            self.startIndicator()
+            API.instance.getForecastDaily() { (result) in
+                switch (result) {
+                case .success(let object):
+                    print("SUCCESS")
+                    guard let forecasts = object as? [Forecast], let current = forecasts.first else {
+                        print("Unable to find objects")
+                        self.forecastArray = []
+                        self.reloadData()
+                        return
+                    }
+                    var array = forecasts
+                    array.removeFirst()
+                    self.forecastArray = array
+                    self.currentForecast = current
+                    self.updateUI()
+                    self.reloadData()
+                case .failure(let error):
+                    print("ERROR \(error)")
                     self.forecastArray = []
                     self.reloadData()
-                    return
                 }
-                var array = forecasts
-                array.removeFirst()
-                self.forecastArray = array
-                self.currentForecast = current
-                self.updateUI()
-                self.reloadData()
-            case .failure(let error):
-                print("ERROR \(error)")
-                self.forecastArray = []
-                self.reloadData()
             }
         }
     }

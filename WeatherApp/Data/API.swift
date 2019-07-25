@@ -29,12 +29,13 @@ class API {
     private init() {}
     
     let configurationManager = ConfigurationManager.instance
-    let apikey = ConfigurationManager.instance.getAPIKey()
+    let apikey = ConfigurationManager.instance.urlForPath(urlKey: .APIKEY)
+    let googleAPIKey = ConfigurationManager.instance.urlForPath(urlKey: .GOOGLEAPIKEY)
     
     // GET FORECAST
     func getForecastDaily(completion: @escaping (GetResult) -> ()) {
         let stateData = StateData.instance
-        if let url = getURL(urlKey: .GETFORECAST, latitude: stateData.staticLat, longitude: stateData.staticLong) {
+        if let url = getURL(urlKey: .GETFORECAST, latitude: stateData.latitude, longitude: stateData.longitude) {
             
             Alamofire.request(url).responseJSON { (response) in
                 

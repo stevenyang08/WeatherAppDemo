@@ -14,7 +14,7 @@
             <connections>
                 <outlet property="doneButton" destination="nAO-si-LBi" id="ymj-yX-SxL"/>
                 <outlet property="locationLabel" destination="kLS-aL-3qS" id="vfS-m0-fgQ"/>
-                <outlet property="searchBar" destination="NG7-Ir-FpE" id="ynz-x0-i1q"/>
+                <outlet property="locationTextfield" destination="Lc7-E3-Bxr" id="bjT-Kb-L2j"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -23,15 +23,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <searchBar contentMode="redraw" placeholder="Enter City" translatesAutoresizingMaskIntoConstraints="NO" id="NG7-Ir-FpE">
-                    <rect key="frame" x="20" y="326" width="374" height="44"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="44" id="ymg-qi-AEZ"/>
-                    </constraints>
-                    <textInputTraits key="textInputTraits"/>
-                </searchBar>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="33" translatesAutoresizingMaskIntoConstraints="NO" id="uJF-TT-UbN">
-                    <rect key="frame" x="40" y="420" width="334" height="39"/>
+                    <rect key="frame" x="40" y="423" width="334" height="39"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UwP-8S-BdU" customClass="RoundedBorderUIButton" customModule="WeatherApp" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="150.5" height="39"/>
@@ -59,8 +52,8 @@
                         </button>
                     </subviews>
                 </stackView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kLS-aL-3qS">
-                    <rect key="frame" x="40" y="194" width="334" height="72"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="kLS-aL-3qS">
+                    <rect key="frame" x="40" y="231" width="334" height="72"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="72" id="ofI-98-dc4"/>
                     </constraints>
@@ -68,21 +61,39 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected City:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="c7k-d8-WPL">
+                    <rect key="frame" x="40" y="179" width="334" height="42"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="42" id="eMM-Yi-fQG"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Location" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lc7-E3-Bxr">
+                    <rect key="frame" x="40" y="333" width="334" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="DAB-0B-Hae"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="Lc7-E3-Bxr" firstAttribute="top" secondItem="kLS-aL-3qS" secondAttribute="bottom" constant="30" id="76b-Gn-lLh"/>
                 <constraint firstItem="kLS-aL-3qS" firstAttribute="leading" secondItem="uJF-TT-UbN" secondAttribute="leading" id="D2b-YG-Qt7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Lc7-E3-Bxr" secondAttribute="trailing" constant="40" id="JRJ-bC-S4n"/>
+                <constraint firstItem="Lc7-E3-Bxr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="Juk-Jr-TzW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="uJF-TT-UbN" secondAttribute="trailing" constant="40" id="KPm-ZO-SsE"/>
-                <constraint firstItem="kLS-aL-3qS" firstAttribute="centerX" secondItem="NG7-Ir-FpE" secondAttribute="centerX" id="LZw-m1-gv7"/>
-                <constraint firstItem="NG7-Ir-FpE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-100" id="Mf3-hX-6sO"/>
+                <constraint firstItem="uJF-TT-UbN" firstAttribute="top" secondItem="Lc7-E3-Bxr" secondAttribute="bottom" constant="60" id="Pik-Sr-2kc"/>
+                <constraint firstItem="c7k-d8-WPL" firstAttribute="leading" secondItem="kLS-aL-3qS" secondAttribute="leading" id="VqM-T0-tMi"/>
                 <constraint firstItem="kLS-aL-3qS" firstAttribute="trailing" secondItem="uJF-TT-UbN" secondAttribute="trailing" id="WW6-A2-I33"/>
-                <constraint firstItem="uJF-TT-UbN" firstAttribute="centerX" secondItem="NG7-Ir-FpE" secondAttribute="centerX" id="WdF-hN-AaH"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NG7-Ir-FpE" secondAttribute="trailing" constant="20" id="ppb-vE-jlE"/>
-                <constraint firstItem="NG7-Ir-FpE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="sYq-r0-mPb"/>
-                <constraint firstItem="uJF-TT-UbN" firstAttribute="top" secondItem="NG7-Ir-FpE" secondAttribute="bottom" constant="50" id="vQ1-VV-SPh"/>
+                <constraint firstItem="c7k-d8-WPL" firstAttribute="trailing" secondItem="kLS-aL-3qS" secondAttribute="trailing" id="ZP8-zb-Cac"/>
+                <constraint firstItem="Lc7-E3-Bxr" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-100" id="cJN-Lf-5JJ"/>
+                <constraint firstItem="kLS-aL-3qS" firstAttribute="top" secondItem="c7k-d8-WPL" secondAttribute="bottom" constant="10" id="w7L-E3-SxZ"/>
                 <constraint firstItem="uJF-TT-UbN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="40" id="yOe-F7-ecW"/>
-                <constraint firstItem="NG7-Ir-FpE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="zgI-cg-hg0"/>
-                <constraint firstItem="NG7-Ir-FpE" firstAttribute="top" secondItem="kLS-aL-3qS" secondAttribute="bottom" constant="60" id="zwa-iY-pw0"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="137.68115942028987" y="150.66964285714286"/>
