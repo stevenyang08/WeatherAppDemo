@@ -35,7 +35,7 @@ class API {
     // GET FORECAST
     func getForecastDaily(completion: @escaping (GetResult) -> ()) {
         let stateData = StateData.instance
-        if let url = getURL(urlKey: .GETFORECAST, latitude: stateData.latitude, longitude: stateData.longitude) {
+        if let url = getURL(urlKey: .GETFORECAST, latitude: stateData.location.latitude, longitude: stateData.location.longitude) {
             
             Alamofire.request(url).responseJSON { (response) in
                 

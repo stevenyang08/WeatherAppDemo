@@ -27,8 +27,6 @@ class LocationViewController: BaseViewController {
     @IBAction func doneButtonClicked(_ sender: RoundedColoredBorderUIButton) {
         if let location = location {
             StateData.instance.location = location
-            StateData.instance.latitude = location.latitude
-            StateData.instance.longitude = location.longitude
             StateData.instance.madeChanges = true
             dismiss(animated: true, completion: nil)
         } else {

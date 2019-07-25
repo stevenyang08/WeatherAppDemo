@@ -16,7 +16,4 @@ class StateData {
     public var isMetric: Bool = false
     public var isNight: Bool = false
     public var madeChanges: Bool = false
-    
-    public var latitude = 0.0
-    public var longitude = 0.0
 }

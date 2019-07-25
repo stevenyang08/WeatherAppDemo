@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MainViewController: BaseViewController {
     
@@ -21,13 +22,14 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var tempSegmentedControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    let locationManager = CLLocationManager()
     var forecastArray: [Forecast] = []
     var currentForecast: Forecast?
     var selectedForecast: Forecast?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        checkIfFirstLogin()
+        locationManager.delegate = self
         
         // Intial Set Up
         if StateData.instance.isMetric {
@@ -40,6 +42,8 @@ class MainViewController: BaseViewController {
         refreshControl = UIRefreshControl()
         refreshControl!.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         scrollView.addSubview(refreshControl!)
+        
+        checkIfFirstLogin()
         
         // Loads API Data
         loadData()
@@ -104,7 +108,7 @@ class MainViewController: BaseViewController {
     
     func loadData() {
         let stateData = StateData.instance
-        if (stateData.latitude != 0.0 && stateData.longitude != 0.0) {
+        if (stateData.location.latitude != 0.0 && stateData.location.longitude != 0.0) {
             self.startIndicator()
             API.instance.getForecastDaily() { (result) in
                 switch (result) {
@@ -142,11 +146,20 @@ class MainViewController: BaseViewController {
     
     // Login Check
     func checkIfFirstLogin() {
-        let firstLaunch = UserDefaults.standard.bool(forKey: "first_launch")
-        switch firstLaunch {
+        let launchedBefore = UserDefaults.standard.bool(forKey: "first_launch")
+        switch launchedBefore {
         case true:
-            presentLocationViewController()
+            return
         case false:
+            checkCurrentLocation()
+        }
+    }
+    
+    fileprivate func checkCurrentLocation() {
+    switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            locationManager.requestWhenInUseAuthorization()
+        default:
             return
         }
     }
@@ -154,6 +167,23 @@ class MainViewController: BaseViewController {
     private func presentLocationViewController() {
         let vc = LocationViewController()
         present(vc, animated: true, completion: nil)
+    }
+    
+    fileprivate func getLocation(latitude: Double, longitude: Double) {
+        let clLocation = CLLocation(latitude: latitude, longitude: longitude)
+        AppDelegate.geoCoder.reverseGeocodeLocation(clLocation) { (placemarks, err) in
+            if let place = placemarks?.first, let city = place.locality, let country = place.isoCountryCode {
+
+                StateData.instance.location.city = city
+                StateData.instance.location.country = country
+                
+                if let state = place.administrativeArea {
+                    StateData.instance.location.state = state
+                }
+                
+                self.loadData()
+            }
+        }
     }
 
     // MARK: - Navigation
@@ -166,7 +196,7 @@ class MainViewController: BaseViewController {
 
 // MARK: - CollectionView
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return forecastArray.count
@@ -183,5 +213,18 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         
         return UICollectionViewCell()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if (status == .authorizedWhenInUse) {
+            if let location = manager.location {
+                let latitude = location.coordinate.latitude
+                let longitude = location.coordinate.longitude
+                StateData.instance.location.latitude = latitude
+                StateData.instance.location.longitude = longitude
+                getLocation(latitude: latitude, longitude: longitude)
+                UserDefaults.standard.setValue(true, forKey: "first_launch")
+            }
+        }
     }
 }
