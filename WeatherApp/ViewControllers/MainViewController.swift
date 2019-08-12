@@ -120,7 +120,7 @@ class MainViewController: BaseViewController {
         if (stateData.location.latitude != 0.0 && stateData.location.longitude != 0.0) {
             LogManager.instance.Log.trace("Loading Data")
             self.startIndicator()
-            API.instance.getForecastDaily() { (result) in
+            API.instance.getForecastDaily(latitude: stateData.location.latitude, longitude: stateData.location.longitude) { (result) in
                 switch (result) {
                 case .success(let object):
                     LogManager.instance.Log.trace("SUCCESS")
@@ -139,7 +139,6 @@ class MainViewController: BaseViewController {
                 case .failure(let error):
                     LogManager.instance.Log.error(error, terminator: "Try again")
                     self.forecastArray = []
-                    self.reloadData()
                 }
             }
         }

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import GoogleMaps
 import GooglePlaces
 import CoreData
 
@@ -21,8 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let googleApiKey = ConfigurationManager.instance.urlForPath(urlKey: .GOOGLEAPIKEY)
         GMSPlacesClient.provideAPIKey(googleApiKey)
-        GMSServices.provideAPIKey(googleApiKey)
-
         
         if let isMetric = PersistenceManager.load(.IsMetric) as? Bool {
             print(isMetric)

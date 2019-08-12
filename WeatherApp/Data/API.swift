@@ -33,11 +33,11 @@ class API {
     let googleAPIKey = ConfigurationManager.instance.urlForPath(urlKey: .GOOGLEAPIKEY)
     
     // GET FORECAST
-    func getForecastDaily(completion: @escaping (GetResult) -> ()) {
-        let stateData = StateData.instance
-        if let url = getURL(urlKey: .GETFORECAST, latitude: stateData.location.latitude, longitude: stateData.location.longitude) {
+    func getForecastDaily(latitude: Double, longitude: Double, completion: @escaping (GetResult) -> ()) {
+        if let url = getURL(urlKey: .GETFORECAST, latitude: latitude, longitude: longitude) {
             
             Alamofire.request(url).responseJSON { (response) in
+                LogManager.instance.Log.debug("API CALL SUCCESSFUL")
                 guard response.result.error == nil else {
                     return completion(.failure(response.result.error!))
                 }
@@ -73,14 +73,16 @@ class API {
                     forecastArray.append(forecast)
                 }
                 
-                return completion(.success(forecastArray))
+                DispatchQueue.main.async {
+                    return completion(.success(forecastArray))
+                }
             }
         } else {
             return completion(.failure(APIError.invalidURL))
         }
     }
     
-    private func getURL(urlKey: URLKey, latitude: Double?, longitude: Double?) -> URL? {
+    func getURL(urlKey: URLKey, latitude: Double?, longitude: Double?) -> URL? {
         let urlString = configurationManager.urlForPath(urlKey: urlKey).replacingOccurrences(of: "{apikey}", with: apikey)
         
         guard latitude != nil && longitude != nil else {
