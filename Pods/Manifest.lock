@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (4.8.2)
+  - GoogleMaps/Base (3.3.0)
+  - GooglePlaces (3.3.0):
+    - GoogleMaps/Base (= 3.3.0)
+  - Log (1.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - GooglePlaces
+  - Log (~> 1.0)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - GoogleMaps
+    - GooglePlaces
+    - Log
+
+SPEC CHECKSUMS:
+  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  GoogleMaps: cfee83da305b9aaeccf92c24ac79df11c3003492
+  GooglePlaces: 1e2a87bd9efee9623ee65d44ecc35ebfecd7b13c
+  Log: 5e368c9528db07517d18d2d04ff5fe2b6f5a1e21
+
+PODFILE CHECKSUM: 85e877ec1d7f5c311363f6e0e56726b39bc05e9b
+
+COCOAPODS: 1.6.0.rc.2

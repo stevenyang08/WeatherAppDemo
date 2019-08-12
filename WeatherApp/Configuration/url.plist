@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>GET_FORECAST</key>
+	<string>https://api.darksky.net/forecast/{apikey}/{latlong}?exclude=minutely,hourly,flags</string>
+	<key>API_KEY</key>
+	<string>ffb31a54a1fe17efda0291995df89728</string>
+	<key>GOOGLE_API_KEY</key>
+	<string>AIzaSyDs8XHov_HCV-sfuvcoGxKR67ZHtJ_b8Ms</string>
+</dict>
+</plist>
